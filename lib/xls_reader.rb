@@ -15,7 +15,7 @@ class XLSReader
       question.each_element do |question_element|
         result_hash['title'] = question_element.text unless question_element.has_elements?
         question_element.each_element do |answer|
-          result_hash['answers'] << answer.text
+          result_hash['answers'] << answer.text.downcase
           result_hash['right_answer'] = answer.text if answer.attributes['right'] == 'true'
         end
       end
