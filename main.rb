@@ -1,5 +1,6 @@
 require 'rexml/document'
 require_relative 'lib/question'
+require_relative 'lib/quiz'
 require_relative 'lib/xls_reader'
 
 current_path = File.dirname(__FILE__)
@@ -15,13 +16,14 @@ questions = []
 params_array.each do |item|
   questions << Question.new(item)
 end
-questions.sort_by! { rand }
-correct_answers = 0
-current_index = 0
+
+quiz = Quiz.new(questions)
 
 puts 'Мини-викторина. Ответьте на вопросы.'
 
-questions.each do |question|
+until quiz.quiz_complete?
+  question = quiz.next_question
+
   puts
   puts question.show_question
 
@@ -29,13 +31,11 @@ questions.each do |question|
 
   if question.is_true?(user_answer)
     puts 'Верный ответ!'
-    correct_answers += 1
+    quiz.update_right_answers
   else
     puts 'Неправильно. Правильный ответ: ' + question.right_answer
   end
-
-  current_index += 1
 end
 
 puts
-puts "Правильных ответов: #{correct_answers} из #{questions.size}"
+puts "Правильных ответов: #{quiz.right_answers} из #{quiz.questions_size}"
