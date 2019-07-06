@@ -2,8 +2,8 @@
 
 <questions>
 
-  <question minutes="1">
-    <text>Сколько байт в килобайте?</text>
+  <question time="1">
+    <title>Сколько байт в килобайте?</title>
     <answers>
       <answer>1000</answer>
       <answer>2048</answer>
@@ -12,8 +12,8 @@
     </answers>
   </question>
 
-  <question minutes="2">
-    <text>В каком году Гагарин полетел в космос?</text>
+  <question time="2">
+    <title>В каком году Гагарин полетел в космос?</title>
     <answers>
       <answer>1960</answer>
       <answer>1957</answer>
@@ -23,8 +23,8 @@
   </question>
 
 
-  <question minutes="3">
-    <text>Сколько дней в высокосном году?</text>
+  <question time="3">
+    <title>Сколько дней в высокосном году?</title>
     <answers>
       <answer>368</answer>
       <answer>365</answer>

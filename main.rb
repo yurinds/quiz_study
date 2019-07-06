@@ -1,4 +1,6 @@
 require 'rexml/document'
+require_relative 'lib/question'
+require_relative 'lib/xls_reader'
 
 current_path = File.dirname(__FILE__)
 
@@ -10,6 +12,19 @@ correct_answers = 0
 current_index = 0
 
 puts 'Мини-викторина. Ответьте на вопросы.'
+
+params_array = XLSReader.read_file(questions_path)
+
+questions = []
+
+params_array.each do |item|
+  p item
+  questions << Question.new(item)
+end
+
+questions.each do |item|
+  puts item.show_question
+end
 
 # while current_index < questions.size
 #  puts
@@ -32,35 +47,4 @@ puts 'Мини-викторина. Ответьте на вопросы.'
 # puts
 # puts "Правильных ответов: #{correct_answers} из #{questions.size}"
 
-require 'rexml/document'
-
-current_path = File.dirname(__FILE__)
-
-questions_path = current_path + '/data/questions.xml'
-
-abort 'Один из файлов не найден!' unless File.exist?(questions_path)
-
-file = File.new(questions_path)
-
-doc = REXML::Document.new(file)
-
-amount_by_day = {}
-
-root = doc.root
-
-root.each_element do |item|
-  puts 'Находимся на самом верхнем уровне. Тут доступны минуты ' + item.attributes['minutes']
-
-  item.each_element do |x|
-    puts 'Уровень вопроса: ' unless x.has_elements?
-    puts x.text unless x.has_elements?
-    puts 'Уровень вариантов' if x.has_elements?
-    x.each_element do |y|
-      puts "#{y.text} #{y.attributes['right'] == 'true' ? 'ответ верный' : ''}"
-    end
-  end
-
-  puts
-end
-
-#a.sort_by{ rand }
+# a.sort_by{ rand }
