@@ -1,4 +1,4 @@
-class XLSReader
+class XMLReader
   def self.read_file(path)
     file = File.new(path)
     doc  = REXML::Document.new(file)

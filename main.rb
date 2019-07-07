@@ -1,7 +1,7 @@
 require 'rexml/document'
 require_relative 'lib/question'
 require_relative 'lib/quiz'
-require_relative 'lib/xls_reader'
+require_relative 'lib/xml_reader'
 
 current_path = File.dirname(__FILE__)
 
@@ -9,7 +9,7 @@ questions_path = current_path + '/data/questions.xml'
 
 abort 'Один из файлов не найден!' unless File.exist?(questions_path)
 
-params_array = XLSReader.read_file(questions_path)
+params_array = XMLReader.read_file(questions_path)
 
 questions = []
 
@@ -27,9 +27,17 @@ until quiz.quiz_complete?
   puts
   puts question.show_question
 
-  user_answer = STDIN.gets.strip.downcase
+  first_time = Time.now
 
-  if question.is_true?(user_answer)
+  user_answer = ''
+  until question.correct_tries.include?(user_answer)
+    user_answer = STDIN.gets.strip.downcase
+  end
+  second_time = Time.now
+
+  abort 'Время на ответ вышло! ' if question.time_is_over?(first_time, second_time)
+
+  if question.is_true?(user_answer.to_i)
     puts 'Верный ответ!'
     quiz.update_right_answers
   else
