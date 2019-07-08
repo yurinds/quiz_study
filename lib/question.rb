@@ -25,7 +25,7 @@ class Question
   end
 
   def show_question
-    text = "#{title}\n\n"
+    text = "#{title} (на ответ #{@time} сек.)\n"
 
     mix_answers
     @answers.each.with_index(1) do |answer, index|
