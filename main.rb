@@ -37,7 +37,7 @@ until quiz.quiz_complete?
 
   abort 'Время на ответ вышло! ' if question.time_is_over?(first_time, second_time)
 
-  if question.is_true?(user_answer.to_i)
+  if question.this_is_right_answer?(user_answer.to_i)
     puts 'Верный ответ!'
     quiz.update_right_answers
   else

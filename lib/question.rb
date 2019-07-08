@@ -8,7 +8,7 @@ class Question
     @right_answer = params['right_answer']
   end
 
-  def is_true?(user_answer)
+  def this_is_right_answer?(user_answer)
     @answers[user_answer - 1] == @right_answer
   end
 
@@ -17,7 +17,7 @@ class Question
   end
 
   def mix_answers
-    @answers.sort_by! { rand }
+    @answers.shuffle!
   end
 
   def time_is_over?(first_time, second_time)

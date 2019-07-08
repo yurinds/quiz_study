@@ -9,7 +9,7 @@ class Quiz
   end
 
   def mix_questions
-    @questions.sort_by! { rand }
+    @questions.shuffle!
   end
 
   def quiz_complete?
