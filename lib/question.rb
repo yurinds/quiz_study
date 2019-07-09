@@ -4,11 +4,11 @@ class Question
   def initialize(params)
     @time = params['time'].to_i
     @title = params['title']
-    @answers = params['answers']
+    @answers = params['answers'].shuffle
     @right_answer = params['right_answer']
   end
 
-  def this_is_right_answer?(user_answer)
+  def right_answer?(user_answer)
     @answers[user_answer - 1] == @right_answer
   end
 
@@ -16,18 +16,9 @@ class Question
     ('1'..@answers.size.to_s).to_a
   end
 
-  def mix_answers
-    @answers.shuffle!
-  end
-
-  def time_is_over?(first_time, second_time)
-    (second_time - first_time).abs.to_i > @time
-  end
-
-  def show_question
+  def to_s
     text = "#{title} (на ответ #{@time} сек.)\n"
 
-    mix_answers
     @answers.each.with_index(1) do |answer, index|
       text += "#{index}. #{answer}\n"
     end
