@@ -1,5 +1,5 @@
 class Quiz
-  attr_reader :questions, :question_index, :right_answers, :questions_size, :first_time
+  attr_reader :questions, :question_index, :right_answers, :questions_size, :first_display_time
 
   def initialize(questions)
     @questions = questions.shuffle
@@ -11,11 +11,11 @@ class Quiz
   def time_over?
     second_time = Time.now
 
-    (second_time - @first_time).abs.to_i > current_question.time
+    (second_time - @first_display_time).abs.to_i > current_question.time
   end
 
   def next_question
-    @first_time = Time.now
+    @first_display_time = Time.now
     @questions[@question_index]
   end
 
