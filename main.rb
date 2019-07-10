@@ -30,7 +30,7 @@ until quiz.quiz_complete?
 
   user_answer = ''
   until question.correct_tries.include?(user_answer)
-    user_answer = STDIN.gets.strip.downcase
+    user_answer = STDIN.gets.strip
   end
 
   abort 'Время на ответ вышло! Викторина прервана!' if quiz.time_over?
