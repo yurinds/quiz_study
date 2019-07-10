@@ -22,20 +22,18 @@ quiz = Quiz.new(questions)
 puts 'Мини-викторина. Ответьте на вопросы.'
 
 until quiz.quiz_complete?
+
   question = quiz.next_question
 
   puts
   puts question
 
-  first_time = Time.now
-
   user_answer = ''
   until question.correct_tries.include?(user_answer)
     user_answer = STDIN.gets.strip.downcase
   end
-  second_time = Time.now
 
-  abort 'Время на ответ вышло! Викторина прервана!' if quiz.time_over?(first_time, second_time)
+  abort 'Время на ответ вышло! Викторина прервана!' if quiz.time_over?
 
   if quiz.right_answer?(user_answer.to_i)
     puts 'Верный ответ!'
