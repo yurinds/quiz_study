@@ -11,11 +11,7 @@ abort 'Один из файлов не найден!' unless File.exist?(questio
 
 params_array = XMLReader.read_file(questions_path)
 
-questions = []
-
-params_array.each do |item|
-  questions << Question.new(item)
-end
+questions = params_array.map { |item| Question.new(item) }
 
 quiz = Quiz.new(questions)
 
